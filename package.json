@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jest --watch"
+    "test": "./node_modules/.bin/jest --watch",
+    "doc": "./node_modules/.bin/jsdoc ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Karol Szykuła",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "jsdoc": "^3.6.3"
   }
 }
