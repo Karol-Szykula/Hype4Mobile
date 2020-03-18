@@ -12,7 +12,7 @@ class Structure {
    */
   constructor(value, isSplitAble, operator) {
     this.value = value;
-    this.isSplitAble = isSplitAble !== undefined ? isSplitAble : true;
+    this.isSplitAble = typeof isSplitAble === "boolean" ? isSplitAble : true;
     this.criterions = [];
     this.operator =
       operator === OPERATOR.AND || operator === OPERATOR.OR
