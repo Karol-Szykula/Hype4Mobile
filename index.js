@@ -8,7 +8,7 @@ class Structure {
    * @constructor
    * @param {string} value - criterion value of a given node
    * @param {boolean} isSplitAble - defines whether given node is splitable
-   * @param {string} operator - defines operator for a given level od a structure
+   * @param {string} operator - defines operator for a given level of a structure
    */
   constructor(value, isSplitAble, operator) {
     this.value = value;
@@ -133,6 +133,56 @@ class Structure {
     return path;
   }
 }
+
+function example() {
+  const peopleStructure = new Structure("People");
+
+  const ageCriterion = new Structure("Age", false);
+
+  peopleStructure.addCriterionByPath("People", ageCriterion);
+
+  const ageValue = new Structure("40+", false);
+
+  peopleStructure.addCriterionByPath("People:Age", ageValue);
+
+  const ethinicityCriterion = new Structure("Ethinicity", true, OPERATOR.OR);
+
+  peopleStructure.addCriterionByPath("People", ethinicityCriterion);
+
+  const ethinicityBlack = new Structure("Black", true, OPERATOR.OR);
+
+  peopleStructure.addCriterionByPath("People:Ethinicity", ethinicityBlack);
+
+  const ethinicityHispanic = new Structure("Hispanic", true, OPERATOR.OR);
+
+  peopleStructure.addCriterionByPath("People:Ethinicity", ethinicityHispanic);
+
+  const incomeYearlyCriterion = new Structure("Income yearly", false);
+
+  peopleStructure.addCriterionByPath("People", incomeYearlyCriterion);
+
+  const incomeValue = new Structure("45k USD+", false);
+
+  peopleStructure.addCriterionByPath("People:Income yearly", incomeValue);
+
+  // console.log(peopleStructure.criterions[0].criterions[0]); // 40+ node
+  // console.log(peopleStructure.criterions[1].criterions[1]); // hispanic node
+  console.log(peopleStructure.criterions[2].criterions[0]); // 45k USD+ node
+
+  /*
+  - every criterion is nested as instance of Structure in criterions array
+  - for example criterion Ethinicity - Hispanic is nested as peopleStructure.criterions[1].criterions[1]
+  - to add a nested criterion, path to it's value needs to be specified, 
+    for example to add a Catalans and Mexican to Hispanic criterion, two new instances of Strucutre needs to be created and added with method
+    addCriterionByPath('People:Ethinicity:Hispanic, catalansInstance) and
+    addCriterionByPath('People:Ethinicity:Hispanic, mexicanInstance)
+  - to remove criterion use method removeCriterionByPath with path to a criterion,
+    for example to remove criterion Hispanic and it's all nested criterions - removeCriterionByPath('People:Ethinicity:Hispanic'),
+  - operator for specified level of criterions is held in a strucutre with an array of criterions of that level
+  */
+}
+
+example();
 
 module.exports = {
   Structure,
